@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var fs = require('fs'),
   glob = require('glob'),
   svgJson = {};

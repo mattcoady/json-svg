@@ -1,6 +1,6 @@
 {
   "name": "json-svg",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Convert your SVG's in JSON",
   "main": "./bin/index.js",
   "scripts": {
