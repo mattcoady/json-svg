@@ -1,6 +1,9 @@
-var fs = require('fs');
-var glob = require('glob');
-var svgJson = {};
+var fs = require('fs'),
+  glob = require('glob'),
+  svgJson = {};
+
+svgJson.svgData = {};
+svgJson.names = [];
 
 function pathFinder(path){
   return newPath = {
@@ -17,6 +20,8 @@ function jsonMaker(data, file){
 
   var fileName = file.replace(/(.svg)/g, "");
 
+  svgJson.names.push(fileName);
+
   var svgContainerSettings = data.match(/<svg(.*)>/gi)[0];
   var viewBox = svgContainerSettings
     .match(/viewBox="\s*([^"]*)\s*"/gi)[0]
@@ -31,25 +36,31 @@ function jsonMaker(data, file){
     paths.push(pathFinder(pathsHtml[i]));
   }
 
-  svgJson[fileName] = {};
-  svgJson[fileName]['viewBox'] = viewBox;
-  svgJson[fileName]['shape'] = [];
-  svgJson[fileName]['shape'] = paths;
+  svgJson.svgData[fileName] = {};
+  svgJson.svgData[fileName]['viewBox'] = viewBox;
+  svgJson.svgData[fileName]['shape'] = [];
+  svgJson.svgData[fileName]['shape'] = paths;
+
+  console.log(file + " - Done");
 
   fs.writeFile('output.json',JSON.stringify(svgJson),'utf8');
 
 }
 
 glob("*.svg",function(er, files){
-  for(var i = 0; i < files.length;i++){
-    fileIterator(files[i]);
+  if(files.length > 0){
+    for(var i = 0; i < files.length;i++){
+      fileIterator(files[i]);
+    }
+  }else{
+    console.log ("Oh no errors! Might be no svg's in this directory.");
   }
 });
 
 function fileIterator(file){
   fs.readFile(file, 'utf8', function (err,data) {
     if (err) {
-      return console.log(err);
+      console.log ("Ah balls, an error", err);
     }
     jsonMaker(data, file);
   });
