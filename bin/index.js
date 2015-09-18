@@ -1,9 +1,6 @@
 var fs = require('fs');
 var glob = require('glob');
-//var jquery = fs.readFileSync("./jquery-2.1.4.min.js").toString();
 var svgJson = {};
-
-
 
 function pathFinder(path){
   return newPath = {
