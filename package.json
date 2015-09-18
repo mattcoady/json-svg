@@ -1,11 +1,13 @@
 {
   "name": "json-svg",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Convert your SVG's in JSON",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": "index.js",
   "author": "Matt Coady",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": "https://github.com/mattcoady/json-svg"
 }
